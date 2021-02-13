@@ -1,38 +1,5 @@
 version: 2.1
 
-commands:
-  destroy-environment:
-    description: Destroy backend and frontend cloudformation stacks given a workflow ID.
-    parameters:
-      WorkflowID:
-        type: string  
-
-    steps:
-      - run:
-          name: Destroy environments
-          when: on_fail
-          command: |
-            aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.WorkflowID >>
-
-
-#aws cloudformation delete-stack --stack-name udapeople-frontend
-#aws s3 rb s3://udapeople-123lr --force
-
-  revert-migrations:
-    description: Revert the last migration if successfully run in the current workflow.    
-    steps:
-      - run:
-          name: Revert migrations
-          command: |
-            SUCCESS=$(curl -H "token: migration_${CIRCLE_WORKFLOW_ID:0:7}" --request GET https://api.memstash.io/values/migration)
-            if(( $SUCCESS==1 )); 
-            then
-              cd ~/project/backend
-              npm install
-              npm run migrations:revert
-            fi
-          when: on_fail
-
 jobs:
   build-frontend:
     docker:
