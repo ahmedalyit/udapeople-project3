@@ -21,4 +21,7 @@ jobs:
           event: fail
           template: basic_fail_1
           
-          
+workflows:
+  default:
+    jobs:
+      - build-frontend
