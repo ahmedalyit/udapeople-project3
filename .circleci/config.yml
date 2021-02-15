@@ -14,9 +14,10 @@ jobs:
             sudo npm install webpack-dev-server -g
             sudo npm install
             sudo npm run build
+            exit 1
       - save_cache:
           paths: [frontend/node_modules]
-          key: frontend-build  # -<< pipeline.id >>          
+          key: frontend-build        
 workflows:
   default:
     jobs:
